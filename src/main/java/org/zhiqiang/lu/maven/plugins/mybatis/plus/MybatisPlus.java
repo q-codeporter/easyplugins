@@ -3,7 +3,6 @@ package org.zhiqiang.lu.maven.plugins.mybatis.plus;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.generator.AutoGenerator;
-import com.baomidou.mybatisplus.generator.InjectionConfig;
 import com.baomidou.mybatisplus.generator.config.*;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
@@ -47,7 +46,7 @@ public class MybatisPlus extends AbstractMojo {
         JSONObject global = properties.getJSONObject("easycode").getJSONObject("mybatis").getJSONObject("global");
         JSONObject datasource = properties.getJSONObject("easycode").getJSONObject("mybatis").getJSONObject("datasource");
         JSONObject application = properties.getJSONObject("easycode").getJSONObject("mybatis").getJSONObject("package");
-        JSONObject template = properties.getJSONObject("easycode").getJSONObject("mybatis").getJSONObject("template");
+        // JSONObject template = properties.getJSONObject("easycode").getJSONObject("mybatis").getJSONObject("template");
         JSONObject strategy = properties.getJSONObject("easycode").getJSONObject("mybatis").getJSONObject("strategy");
 
         // 全局配置
@@ -75,12 +74,12 @@ public class MybatisPlus extends AbstractMojo {
         mpg.setPackageInfo(pc);
 
         // 自定义配置
-        InjectionConfig cfg = new InjectionConfig() {
-            @Override
-            public void initMap() {
-                // to do nothing
-            }
-        };
+        // InjectionConfig cfg = new InjectionConfig() {
+        //     @Override
+        //     public void initMap() {
+        //         // to do nothing
+        //     }
+        // };
 
         // 配置模板
         TemplateConfig templateConfig = new TemplateConfig();

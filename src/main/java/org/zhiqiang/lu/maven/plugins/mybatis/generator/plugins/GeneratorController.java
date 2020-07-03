@@ -78,9 +78,9 @@ public class GeneratorController extends PluginAdapter {
                 e.printStackTrace();
             }
         }
-        Configuration cfg = new Configuration();
+        Configuration cfg = new Configuration(Configuration.VERSION_2_3_30);
         cfg.setClassForTemplateLoading(this.getClass(), "/");
-        cfg.setObjectWrapper(new DefaultObjectWrapper());
+        cfg.setObjectWrapper(new DefaultObjectWrapper(Configuration.VERSION_2_3_30));
         try {
             Template temp;
             if (GeneratorSwagger2Doc.controller_swagger) {

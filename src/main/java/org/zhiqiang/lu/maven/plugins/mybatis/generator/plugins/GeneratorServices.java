@@ -15,13 +15,12 @@ public class GeneratorServices extends PluginAdapter {
         return true;
     }
 
-
-
     public List<GeneratedJavaFile> contextGenerateAdditionalJavaFiles(IntrospectedTable introspectedTable) {
         String javaRepositoryPackage = this.getContext().getJavaClientGeneratorConfiguration().getTargetPackage();
         String javaMapperType = introspectedTable.getMyBatis3JavaMapperType();
         String topPackage = javaRepositoryPackage.substring(0, javaRepositoryPackage.lastIndexOf('.'));
-        String javaClassName = javaMapperType.substring(javaMapperType.lastIndexOf('.') + 1, javaMapperType.length()).replace("Mapper", "");
+        String javaClassName = javaMapperType.substring(javaMapperType.lastIndexOf('.') + 1, javaMapperType.length())
+                .replace("Mapper", "");
         String targetProject = this.getContext().getJavaClientGeneratorConfiguration().getTargetProject();
         String javaModelTargetPackage = this.getContext().getJavaModelGeneratorConfiguration().getTargetPackage();
         String javaClientTargetPackage = this.getContext().getJavaClientGeneratorConfiguration().getTargetPackage();
@@ -31,7 +30,8 @@ public class GeneratorServices extends PluginAdapter {
         root.put("javaModelTargetPackage", javaModelTargetPackage);
         root.put("javaClientTargetPackage", javaClientTargetPackage);
         root.put("EntityName", javaClassName);
-        root.put("entityName", new StringBuilder().append(Character.toLowerCase(javaClassName.charAt(0))).append(javaClassName.substring(1)).toString());
+        root.put("entityName", new StringBuilder().append(Character.toLowerCase(javaClassName.charAt(0)))
+                .append(javaClassName.substring(1)).toString());
         genService(targetProject, topPackage, javaClassName, root);
         return super.contextGenerateAdditionalJavaFiles(introspectedTable);
     }
@@ -53,9 +53,9 @@ public class GeneratorServices extends PluginAdapter {
             }
         }
 
-        Configuration cfg = new Configuration();
+        Configuration cfg = new Configuration(Configuration.VERSION_2_3_30);
         cfg.setClassForTemplateLoading(this.getClass(), "/");
-        cfg.setObjectWrapper(new DefaultObjectWrapper());
+        cfg.setObjectWrapper(new DefaultObjectWrapper(Configuration.VERSION_2_3_30));
         try {
             Template temp = cfg.getTemplate("mybatis/generator/service.ftl");
             Writer out = new OutputStreamWriter(new FileOutputStream(file));

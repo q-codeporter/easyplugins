@@ -15,7 +15,7 @@ public class Column {
         return actualColumnName;
     }
 
-    public void setActualColumnName(String actualColumnName) {
+    public void setActualColumnName(final String actualColumnName) {
         this.actualColumnName = actualColumnName;
     }
 
@@ -23,7 +23,7 @@ public class Column {
         return actualTypeName;
     }
 
-    public void setActualTypeName(String actualTypeName) {
+    public void setActualTypeName(final String actualTypeName) {
         this.actualTypeName = actualTypeName;
     }
 
@@ -31,7 +31,7 @@ public class Column {
         return length;
     }
 
-    public void setLength(int length) {
+    public void setLength(final int length) {
         this.length = length;
     }
 
@@ -39,7 +39,7 @@ public class Column {
         return remarks;
     }
 
-    public void setRemarks(String remarks) {
+    public void setRemarks(final String remarks) {
         this.remarks = remarks;
     }
 
@@ -47,7 +47,7 @@ public class Column {
         return fullyQualifiedJavaType;
     }
 
-    public void setFullyQualifiedJavaType(FullyQualifiedJavaType fullyQualifiedJavaType) {
+    public void setFullyQualifiedJavaType(final FullyQualifiedJavaType fullyQualifiedJavaType) {
         this.fullyQualifiedJavaType = fullyQualifiedJavaType;
     }
 }
