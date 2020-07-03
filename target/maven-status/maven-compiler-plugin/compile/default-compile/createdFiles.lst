@@ -1,9 +1,0 @@
-org\zhiqiang\lu\maven\plugins\mybatis\generator\MybatisGenerator.class
-org\zhiqiang\lu\maven\plugins\mybatis\generator\entity\FullyQualifiedJavaType.class
-org\zhiqiang\lu\maven\plugins\mybatis\generator\plugins\GeneratorController.class
-org\zhiqiang\lu\maven\plugins\mybatis\generator\plugins\GeneratorSwagger2Doc.class
-org\zhiqiang\lu\maven\plugins\mybatis\generator\plugins\GeneratorDateTimeFormat.class
-org\zhiqiang\lu\maven\plugins\mybatis\generator\plugins\GeneratorServices.class
-org\zhiqiang\lu\maven\plugins\mybatis\plus\MybatisPlus.class
-org\zhiqiang\lu\maven\plugins\mybatis\generator\plugins\ExtendEntitySetter.class
-org\zhiqiang\lu\maven\plugins\mybatis\generator\entity\Column.class
