@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 @RestController
-@RequestMapping("/${entityName}")
+@RequestMapping("/${entity_name}")
 public class ${EntityName}Controller {
 
 @Autowired

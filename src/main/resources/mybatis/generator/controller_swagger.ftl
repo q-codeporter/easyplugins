@@ -21,7 +21,7 @@ import io.swagger.annotations.ApiParam;
 
 
 @RestController
-@RequestMapping("/${entityName}")
+@RequestMapping("/${entity_name}")
 @Api(value = "${entityName}", tags = "${remarks}")
 public class ${EntityName}Controller {
 

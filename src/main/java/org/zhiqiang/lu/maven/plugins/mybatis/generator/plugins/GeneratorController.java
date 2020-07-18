@@ -26,7 +26,8 @@ public class GeneratorController extends PluginAdapter {
             String javaRepositoryPackage = this.getContext().getJavaClientGeneratorConfiguration().getTargetPackage();
             String javaMapperType = introspectedTable.getMyBatis3JavaMapperType();
             String topPackage = javaRepositoryPackage.substring(0, javaRepositoryPackage.lastIndexOf('.'));
-            String javaClassName = javaMapperType.substring(javaMapperType.lastIndexOf('.') + 1, javaMapperType.length()).replace("Mapper", "");
+            String javaClassName = javaMapperType
+                    .substring(javaMapperType.lastIndexOf('.') + 1, javaMapperType.length()).replace("Mapper", "");
             String targetProject = this.getContext().getJavaClientGeneratorConfiguration().getTargetProject();
             String javaModelTargetPackage = this.getContext().getJavaModelGeneratorConfiguration().getTargetPackage();
             String javaClientTargetPackage = this.getContext().getJavaClientGeneratorConfiguration().getTargetPackage();
@@ -36,17 +37,24 @@ public class GeneratorController extends PluginAdapter {
             root.put("javaModelTargetPackage", javaModelTargetPackage);
             root.put("javaClientTargetPackage", javaClientTargetPackage);
             root.put("EntityName", javaClassName);
-            root.put("entityName", new StringBuilder().append(Character.toLowerCase(javaClassName.charAt(0))).append(javaClassName.substring(1)).toString());
+            root.put("entityName", new StringBuilder().append(Character.toLowerCase(javaClassName.charAt(0)))
+                    .append(javaClassName.substring(1)).toString());
+            root.put("entity_name", root.get("entityName").toString().replaceAll("[A-Z]", "_$0").toLowerCase());
             root.put("remarks", introspectedTable.getRemarks());
             List<Column> primary_key = new ArrayList<>();
             Set<String> packages = new HashSet<>();
-            for (GeneratedJavaFile g : introspectedTable.getPrimaryKeyColumns().get(0).getIntrospectedTable().getGeneratedJavaFiles()) {
-                List<JSONObject> methods = JSON.parseArray(JSON.parseObject(JSON.toJSONString(g.getCompilationUnit())).getString("methods"), JSONObject.class);
+            for (GeneratedJavaFile g : introspectedTable.getPrimaryKeyColumns().get(0).getIntrospectedTable()
+                    .getGeneratedJavaFiles()) {
+                List<JSONObject> methods = JSON.parseArray(
+                        JSON.parseObject(JSON.toJSONString(g.getCompilationUnit())).getString("methods"),
+                        JSONObject.class);
                 for (JSONObject m : methods) {
                     if ("selectByPrimaryKey".equals(m.getString("name"))) {
                         List<JSONObject> parameters = JSON.parseArray(m.getString("parameters"), JSONObject.class);
                         for (JSONObject parameter : parameters) {
-                            Column column = JSON.parseObject(JSON.toJSONString(introspectedTable.getColumn(parameter.getString("name"))), Column.class);
+                            Column column = JSON.parseObject(
+                                    JSON.toJSONString(introspectedTable.getColumn(parameter.getString("name"))),
+                                    Column.class);
                             if (!"java.lang".equals(column.getFullyQualifiedJavaType().getPackageName())) {
                                 packages.add(column.getFullyQualifiedJavaType().getFullyQualifiedName());
                             }
@@ -62,7 +70,8 @@ public class GeneratorController extends PluginAdapter {
         return super.contextGenerateAdditionalJavaFiles(introspectedTable);
     }
 
-    private void genController(String targetProject, String topPackage, String javaClassName, Map<String, Object> root) {
+    private void genController(String targetProject, String topPackage, String javaClassName,
+            Map<String, Object> root) {
         String dirPath = targetProject + "/" + topPackage.replaceAll("\\.", "/") + "/controller";
         String filePath = dirPath + "/" + javaClassName + "Controller.java";
         File dir = new File(dirPath);
