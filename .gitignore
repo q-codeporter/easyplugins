@@ -1,3 +1,4 @@
 /.classpath
 .vscode/*
 target
+.vscode/settings.json
