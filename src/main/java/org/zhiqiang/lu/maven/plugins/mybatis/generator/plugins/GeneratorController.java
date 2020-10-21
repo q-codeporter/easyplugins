@@ -40,11 +40,7 @@ public class GeneratorController extends PluginAdapter {
       root.put("entityName", new StringBuilder().append(Character.toLowerCase(javaClassName.charAt(0)))
           .append(javaClassName.substring(1)).toString());
       root.put("entity_name", root.get("entityName").toString().replaceAll("[A-Z]", "_$0").toLowerCase());
-      try {
-        root.put("remarks", new String(introspectedTable.getRemarks().getBytes(), "gbk"));
-      } catch (UnsupportedEncodingException e) {
-        root.put("remarks", "");
-      }
+      root.put("remarks", introspectedTable.getRemarks());
       List<Column> primary_key = new ArrayList<>();
       Set<String> packages = new HashSet<>();
       for (GeneratedJavaFile g : introspectedTable.getPrimaryKeyColumns().get(0).getIntrospectedTable()
@@ -91,14 +87,15 @@ public class GeneratorController extends PluginAdapter {
     Configuration cfg = new Configuration(Configuration.VERSION_2_3_30);
     cfg.setClassForTemplateLoading(this.getClass(), "/");
     cfg.setObjectWrapper(new DefaultObjectWrapper(Configuration.VERSION_2_3_30));
+    cfg.setEncoding(Locale.CHINA, "UTF-8");
     try {
       Template temp;
       if (GeneratorSwagger2Doc.controller_swagger) {
-        temp = cfg.getTemplate("mybatis/generator/controller_swagger.ftl");
+        temp = cfg.getTemplate("mybatis/generator/controller_swagger.ftl", Locale.CHINA);
       } else {
-        temp = cfg.getTemplate("mybatis/generator/controller.ftl");
+        temp = cfg.getTemplate("mybatis/generator/controller.ftl", Locale.CHINA);
       }
-      Writer out = new OutputStreamWriter(new FileOutputStream(file));
+      Writer out = new OutputStreamWriter(new FileOutputStream(file), "UTF-8");
       temp.process(root, out);
       out.flush();
     } catch (Exception e) {
