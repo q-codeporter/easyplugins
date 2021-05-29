@@ -1,0 +1,19 @@
+easycode:
+  mybatis-plus-generator:
+    global_config:
+      idType:
+    package:
+      name:
+      parent: com.hitsoft.management
+    global:
+      swagger: true
+    datasource:
+      url: jdbc:mysql://1.62.154.22:6365/cloud_management?useUnicode=true&serverTimezone=GMT&useSSL=false&characterEncoding=utf8
+      username: root
+      password: root
+      driver-class-name: com.mysql.jdbc.Driver
+    template:
+      type: freemarker
+    strategy:
+      lombok: false
+      table: authorization,authorization_monthly_money,authorization_order,profile
