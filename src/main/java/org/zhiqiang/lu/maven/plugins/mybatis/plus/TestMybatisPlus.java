@@ -21,7 +21,7 @@ import java.util.ArrayList;
  */
 
 // 配置文件位置
-public class GenerateMybatisPlus {
+public class TestMybatisPlus {
 
   /**
    * @param dataSourceurl
@@ -47,7 +47,7 @@ public class GenerateMybatisPlus {
     gc.setOutputDir(projectPath + "/src/main/java");// 生成文件输出根目录
     gc.setAuthor("Q");// 作者
     gc.setOpen(false); // 生成完成后不弹出文件框
-    gc.setFileOverride(true); // 文件是否覆盖
+    gc.setFileOverride(false); // 文件是否覆盖
     gc.setIdType(IdType.AUTO); // 主键策略 实体类主键ID类型
     gc.setDateType(DateType.ONLY_DATE);
     gc.setSwagger2(true); // 是否开启swagger
@@ -127,10 +127,11 @@ public class GenerateMybatisPlus {
    * @param packageName
    */
   private static TemplateConfig initTemplateConfig(String packageParent) {
+    System.out.println(packageParent);
     TemplateConfig tc = new TemplateConfig();
     String[] baseDir = { "entity", "mapper", "service", "service.impl", "controller" };
+    initVM(tc);
     for (String tmp : baseDir) {
-      initVM(tc);
       String s = Paths
           .get(System.getProperty("user.dir") + "/src/main/java", String.join("/", packageParent.split("\\.")), tmp)
           .toString();
@@ -138,8 +139,8 @@ public class GenerateMybatisPlus {
       String[] list = file.list();
       if (list != null && list.length > 0) {
         System.out.println("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
-        tc.disable(TemplateType.SERVICE);
-        tc.disable(TemplateType.CONTROLLER);
+        // tc.disable(TemplateType.SERVICE);
+        // tc.disable(TemplateType.CONTROLLER);
       } else {
         System.out.println("------------------------------------------------------------");
       }
@@ -158,7 +159,7 @@ public class GenerateMybatisPlus {
 
   public static void main(String[] args) {
     String dataSourceurl = "jdbc:mysql://1.62.154.22:6365/kubesphere_manager?useSSL=false&useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8";
-    new GenerateMybatisPlus().generate(dataSourceurl, "root", "root", "com.mysql.jdbc.Driver", "approval_process",
+    new TestMybatisPlus().generate(dataSourceurl, "root", "root", "com.mysql.jdbc.Driver", "approval_process,manger_user",
         "com.hong.generate.generatedemo", false);
   }
 }

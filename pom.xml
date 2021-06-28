@@ -4,7 +4,7 @@
   <groupId>org.zhiqiang.lu.maven.plugins</groupId>
   <artifactId>easyplugins</artifactId>
   <packaging>maven-plugin</packaging>
-  <version>3.2.2</version>
+  <version>5.0.2</version>
   <properties>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
@@ -32,11 +32,6 @@
       <artifactId>junit</artifactId>
       <version>4.8</version>
       <scope>test</scope>
-    </dependency>
-    <dependency>
-      <groupId>mysql</groupId>
-      <artifactId>mysql-connector-java</artifactId>
-      <version>8.0.19</version>
     </dependency>
 
     <!--以下为mybatis-generator支持-->
@@ -70,7 +65,7 @@
     <dependency>
       <groupId>com.alibaba</groupId>
       <artifactId>fastjson</artifactId>
-      <version>1.2.68</version>
+      <version>1.2.76</version>
     </dependency>
     <dependency>
       <groupId>org.slf4j</groupId>

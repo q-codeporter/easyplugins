@@ -50,47 +50,42 @@ public class ${table.controllerName} {
 
     @ApiOperation(value = "新增")
     @PostMapping("/save")
-    public Result save(@RequestBody ${entity} ${table.entityPath}){
-        ${table.entityPath}Service.save(${table.entityPath});
-        return new Result(StatusCode.SUCCESS,"保存成功");
+    public boolean save(@RequestBody ${entity} ${table.entityPath}){
+        return ${table.entityPath}Service.save(${table.entityPath});
     }
 
     @ApiOperation(value = "根据id删除")
     @PostMapping("/delete/{id}")
-    public Result delete(@PathVariable("id") Long id){
-        ${table.entityPath}Service.removeById(id);
-        return new Result(StatusCode.SUCCESS,"删除成功");
+    public boolean delete(@PathVariable("id") Long id){
+        return ${table.entityPath}Service.removeById(id);
     }
 
     @ApiOperation(value = "条件查询")
     @PostMapping("/get")
-    public Result list(@RequestBody ${entity} ${table.entityPath}){
-        List<${entity}> ${table.entityPath}List = ${table.entityPath}Service.list(new QueryWrapper<>(${table.entityPath}));
-        return new Result(StatusCode.SUCCESS,"查询成功",${table.entityPath}List);
+    public List<${entity}> list(@RequestBody ${entity} ${table.entityPath}){
+        return ${table.entityPath}Service.list(new QueryWrapper<>(${table.entityPath}));
     }
 
     @ApiOperation(value = "列表（分页）")
     @GetMapping("/list/{pageNum}/{pageSize}")
-    public Object list(@PathVariable("pageNum")Long pageNum, @PathVariable("pageSize")Long pageSize){
-        IPage<${entity}> page = ${table.entityPath}Service.page(
+    public PageResult list(@PathVariable("pageNum")Long pageNum, @PathVariable("pageSize")Long pageSize){
+         IPage<${entity}> page = ${table.entityPath}Service.page(
                 new Page<>(pageNum, pageSize),
                 null);
-        return new Result(StatusCode.SUCCESS,"查询成功",new PageResult<>(page.getTotal(),page.getRecords()));
+         return new PageResult<>(page.getTotal(),page.getRecords())
     }
 
     @ApiOperation(value = "详情")
     @GetMapping("/get/{id}")
-    public Result get(@PathVariable("id") Long id){
-        ${entity} ${table.entityPath} = ${table.entityPath}Service.getById(id);
-        return new Result(StatusCode.SUCCESS,"查询成功",${table.entityPath});
+    public ${entity} get(@PathVariable("id") Long id){
+        return ${table.entityPath}Service.getById(id);
     }
 
     @ApiOperation(value = "根据id修改")
     @PostMapping("/update/{id}")
-    public Result update(@PathVariable("id") Long id, @RequestBody ${entity} ${table.entityPath}){
+    public boolean update(@PathVariable("id") Long id, @RequestBody ${entity} ${table.entityPath}){
         ${table.entityPath}.setId(id);
-        ${table.entityPath}Service.updateById(${table.entityPath});
-        return new Result(StatusCode.SUCCESS,"更新成功");
+        return ${table.entityPath}Service.updateById(${table.entityPath});
     }
 
 </#if>
