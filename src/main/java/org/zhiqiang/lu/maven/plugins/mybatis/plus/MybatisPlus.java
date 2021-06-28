@@ -61,8 +61,8 @@ public class MybatisPlus extends AbstractMojo {
     JSONObject strategy = mybatis_plus.getJSONObject("strategy");
 
     String[] baseDir = { "entity", "mapper", "service", "service.impl", "controller" };
-    String packagePath = String.join("/",
-        (application.getString("parent") + "." + application.getString("name")).split("\\."));
+    String module_name = application.getString("module_name") == null ? "" : application.getString("module_name");
+    String packagePath = String.join("/", (module_name + "." + application.getString("parent")).split("\\."));
     for (String tmp : baseDir) {
       String path = projectPath + "/src/main/java/" + packagePath + "/" + tmp;
       if (global.getJSONObject("file-override").getBoolean(tmp)) {
@@ -110,7 +110,7 @@ public class MybatisPlus extends AbstractMojo {
 
     // 3、包配置
     PackageConfig pc = new PackageConfig();
-    pc.setModuleName(application.getString("name"));
+    pc.setModuleName(application.getString("module_name")); // 控制层请求地址的包名显示
     pc.setParent(application.getString("parent"));
     pc.setController("controller"); // 可以不用设置，默认是这个
     pc.setService("service"); // 同上
@@ -118,7 +118,6 @@ public class MybatisPlus extends AbstractMojo {
     pc.setMapper("mapper"); // 默认是mapper
     pc.setXml("mapper.xml"); // 默认是默认是mapper.xml
     pc.setEntity("entity"); // 默认是entity
-    pc.setModuleName(null); // 控制层请求地址的包名显示
     mpg.setPackageInfo(pc);
 
     // 4、策略配置

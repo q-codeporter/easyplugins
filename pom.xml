@@ -4,7 +4,7 @@
   <groupId>org.zhiqiang.lu.maven.plugins</groupId>
   <artifactId>easyplugins</artifactId>
   <packaging>maven-plugin</packaging>
-  <version>7.0.6</version>
+  <version>7.1.1</version>
   <properties>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>

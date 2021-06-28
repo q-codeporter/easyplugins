@@ -1,7 +1,7 @@
 easyplugins:
   mybatis-plus:
     package:
-      name:
+      module_name:
       parent: com.hitsoft.management
     global:
       swagger: true

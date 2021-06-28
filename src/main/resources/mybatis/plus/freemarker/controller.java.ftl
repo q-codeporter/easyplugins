@@ -7,6 +7,7 @@ import ${package.Entity}.${entity};
 <#if swagger2??>
 import io.swagger.annotations.Api;
 </#if>
+import org.springframework.web.bind.annotation.RequestMapping;
 <#if restControllerStyle>
 import org.springframework.web.bind.annotation.RestController;
 <#else>
