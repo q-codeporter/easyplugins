@@ -96,7 +96,7 @@ public class MybatisPlus extends AbstractMojo {
     // dataSourceConfig.setSchemaName("public");
     mpg.setDataSource(dataSourceConfig);
 
-    // 包配置
+    // 3、包配置
     PackageConfig pc = new PackageConfig();
     pc.setModuleName(application.getString("name"));
     pc.setParent(application.getString("parent"));
@@ -149,7 +149,8 @@ public class MybatisPlus extends AbstractMojo {
         }
       }
     }
-    // 模板生成器
+
+    // 5、模板生成器
     mpg.setTemplateEngine(new FreemarkerTemplateEngine());
     TemplateConfig tc = new TemplateConfig();
     tc.setController("/mybatis/plus/freemarker/controller.java");
