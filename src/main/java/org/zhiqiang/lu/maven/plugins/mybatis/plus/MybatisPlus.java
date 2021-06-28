@@ -31,6 +31,12 @@ public class MybatisPlus extends AbstractMojo {
   @Parameter
   private String configurationFile;
 
+  public static void main(String[] args) throws MojoExecutionException {
+    MybatisPlus m = new MybatisPlus();
+    m.configurationFile = "/src/main/resources/mybatis/generator/config.xml";
+    m.execute();
+  }
+
   public void execute() throws MojoExecutionException {
     // 项目路径
     String projectPath = System.getProperty("user.dir");
