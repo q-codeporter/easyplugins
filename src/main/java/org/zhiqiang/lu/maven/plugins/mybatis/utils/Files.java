@@ -7,7 +7,7 @@ import java.io.File;
  * 
  * 删除文件或目录
  * 
- * @author kemp E-mail: 572068511@qq.com
+ * @author Q
  * @version 2018-8-16
  * @see java.lang.Class
  * @since JDK1.8
@@ -153,12 +153,11 @@ public class Files {
   public static void main(String[] args) {
     // String fileName = "g:/temp/xwz.txt";
     // DeleteFileUtil.deleteFile(fileName);
-    String fileDir = "D:\\temp\\pom.xml";
+    // String fileDir = "D:\\temp\\pom.xml";
     // DeleteFileUtil.deleteDirectory(fileDir);
-    Files.delete(fileDir);
-    Files t = new Files();
-		delFolder("c:/bb");
-		System.out.println("deleted");
- 
+    // Files.delete(fileDir);
+    // Files t = new Files();
+		// delFolder("c:/bb");
+		// System.out.println("deleted");
 	}
 }
