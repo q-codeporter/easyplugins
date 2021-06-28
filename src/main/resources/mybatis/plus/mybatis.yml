@@ -22,3 +22,5 @@ easyplugins:
       is-normalize: false
       lombok: false
       table: approval_process
+      super:
+        controller:

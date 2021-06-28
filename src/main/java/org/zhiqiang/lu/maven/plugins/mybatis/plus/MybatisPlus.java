@@ -19,13 +19,11 @@ import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.yaml.snakeyaml.Yaml;
+import org.zhiqiang.lu.maven.plugins.mybatis.utils.files;
 
 import java.io.BufferedInputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 
 @Mojo(name = "mybatis-plus", defaultPhase = LifecyclePhase.PACKAGE)
@@ -61,7 +59,22 @@ public class MybatisPlus extends AbstractMojo {
     JSONObject datasource = mybatis_plus.getJSONObject("datasource");
     JSONObject application = mybatis_plus.getJSONObject("package");
     JSONObject strategy = mybatis_plus.getJSONObject("strategy");
-    JSONObject fileOverride = global.getJSONObject("file-override");
+
+    String[] baseDir = { "entity", "mapper", "service", "service.impl", "controller" };
+    String packagePath = String.join("/",
+        (application.getString("parent") + "." + application.getString("name")).split("\\."));
+    for (String tmp : baseDir) {
+      String path = projectPath + "/src/main/java/" + packagePath + "/" + tmp;
+      if (global.getJSONObject("file-override").getBoolean(tmp)) {
+        try {
+          System.out.println(path);
+          files.delete(path);
+        } catch (Exception e) {
+          System.out.println("删除文件失败！");
+          e.printStackTrace();
+        }
+      }
+    }
 
     // 配置策略
     // 1、全局配置
@@ -70,7 +83,7 @@ public class MybatisPlus extends AbstractMojo {
     gc.setAuthor("Q");// 作者
     gc.setOpen(false); // 生成完成后不弹出文件框
     gc.setFileOverride(false); // 文件是否覆盖
-    gc.setIdType(IdType.AUTO); // 主键策略 实体类主键ID类型
+    gc.setIdType(IdType.ASSIGN_ID); // 主键策略 实体类主键ID类型
     gc.setDateType(DateType.ONLY_DATE);
     gc.setSwagger2(global.getBoolean("swagger")); // 是否开启swagger
     gc.setActiveRecord(true); // 【不懂】 活动记录 不需要ActiveRecord特性的请改为false 是否支持AR模式
@@ -93,7 +106,6 @@ public class MybatisPlus extends AbstractMojo {
     dataSourceConfig.setDriverName(datasource.getString("driver-class-name"));// JDK8
     dataSourceConfig.setUsername(datasource.getString("username"));
     dataSourceConfig.setPassword(datasource.getString("password"));
-    // dataSourceConfig.setSchemaName("public");
     mpg.setDataSource(dataSourceConfig);
 
     // 3、包配置
@@ -103,9 +115,9 @@ public class MybatisPlus extends AbstractMojo {
     pc.setController("controller"); // 可以不用设置，默认是这个
     pc.setService("service"); // 同上
     pc.setServiceImpl("service.impl"); // 同上
-    pc.setMapper("dao"); // 默认是mapper
+    pc.setMapper("mapper"); // 默认是mapper
+    pc.setXml("mapper.xml"); // 默认是默认是mapper.xml
     pc.setEntity("entity"); // 默认是entity
-    pc.setXml("mapping"); // 默认是默认是mapper.xml
     pc.setModuleName(null); // 控制层请求地址的包名显示
     mpg.setPackageInfo(pc);
 
@@ -114,7 +126,6 @@ public class MybatisPlus extends AbstractMojo {
     strategyConfig.setInclude(strategy.getString("table").split(",")); // 需要生成的表 设置要映射的表名
     strategyConfig.setNaming(NamingStrategy.underline_to_camel);// 表名生成策略
     strategyConfig.setColumnNaming(NamingStrategy.underline_to_camel);
-    strategyConfig.setEntityLombokModel(true); // 自动lombok；
     strategyConfig.setCapitalMode(false); // 【不懂】 开启全局大写命名
     strategyConfig.setSuperMapperClass(null); // 【不懂】
     // 是否需要开启特定规范字段
@@ -137,28 +148,13 @@ public class MybatisPlus extends AbstractMojo {
     strategyConfig.setEntityBooleanColumnRemoveIsPrefix(true); // 是否删除实体类字段的前缀
     strategyConfig.setTablePrefix("mdm_"); // 去掉表名mdm_inf_rec_data中的 mdm_ 类名为InfRecData
     strategyConfig.setControllerMappingHyphenStyle(false); // 控制层mapping的映射地址 false：infRecData true：inf_rec_data
-    String[] baseDir = { "entity", "mapper", "service", "service.impl", "controller" };
-    for (String tmp : baseDir) {
-      Path s = Paths.get(gc.getOutputDir(), String.join("/", pc.getParent().split("\\.")), tmp);
-      if (fileOverride.getBoolean(tmp)) {
-        try {
-          Files.delete(s);
-        } catch (IOException e) {
-          System.out.println("删除文件失败！");
-          e.printStackTrace();
-        }
-      }
-    }
+    strategyConfig.setSuperControllerClass(strategy.getJSONObject("super").getString("controller"));
+    mpg.setStrategy(strategyConfig);
 
     // 5、模板生成器
     mpg.setTemplateEngine(new FreemarkerTemplateEngine());
     TemplateConfig tc = new TemplateConfig();
     tc.setController("/mybatis/plus/freemarker/controller.java");
-    tc.setService("/mybatis/plus/freemarker/service.java");
-    tc.setServiceImpl("/mybatis/plus/freemarker/serviceImpl.java");
-    tc.setEntity("/mybatis/plus/freemarker/entity.java");
-    tc.setMapper("/mybatis/plus/freemarker/mapper.java");
-    tc.setXml("/mybatis/plus/freemarker/mapper.xml");
     mpg.setTemplate(tc).execute(); // 执行
   }
 }

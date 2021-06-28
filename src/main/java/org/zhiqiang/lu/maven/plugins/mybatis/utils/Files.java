@@ -13,7 +13,7 @@ import java.io.File;
  * @since JDK1.8
  */
  
-public class Files {
+public class files {
   /**
    * 删除文件，可以是单个文件或文件夹
    * 
