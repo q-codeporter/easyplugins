@@ -1,5 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.zhiqiang.lu.maven.plugins</groupId>
   <artifactId>easyplugins</artifactId>
@@ -42,10 +41,11 @@
     </dependency>
 
     <!--以下为mybatis-plus-generator支持-->
+    <!-- https://mvnrepository.com/artifact/com.baomidou/mybatis-plus-generator -->
     <dependency>
       <groupId>com.baomidou</groupId>
       <artifactId>mybatis-plus-generator</artifactId>
-      <version>3.3.2</version>
+      <version>3.4.1</version>
     </dependency>
     <dependency>
       <groupId>org.freemarker</groupId>
