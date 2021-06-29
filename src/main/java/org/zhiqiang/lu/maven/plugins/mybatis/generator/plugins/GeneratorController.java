@@ -23,9 +23,9 @@ public class GeneratorController extends PluginAdapter {
   public List<GeneratedJavaFile> contextGenerateAdditionalJavaFiles(IntrospectedTable introspectedTable) {
     TableConfiguration t = introspectedTable.getTableConfiguration();
     if ("true".equals(t.getProperties().getProperty("controller"))) {
-      String javaRepositoryPackage = this.getContext().getJavaClientGeneratorConfiguration().getTargetPackage();
+      String javaMapperTargetPackage = this.getContext().getJavaClientGeneratorConfiguration().getTargetPackage();
       String javaMapperType = introspectedTable.getMyBatis3JavaMapperType();
-      String topPackage = javaRepositoryPackage.substring(0, javaRepositoryPackage.lastIndexOf('.'));
+      String topPackage = javaMapperTargetPackage.substring(0, javaMapperTargetPackage.lastIndexOf('.'));
       String javaClassName = javaMapperType.substring(javaMapperType.lastIndexOf('.') + 1, javaMapperType.length())
           .replace("Mapper", "");
       String targetProject = this.getContext().getJavaClientGeneratorConfiguration().getTargetProject();
@@ -34,6 +34,7 @@ public class GeneratorController extends PluginAdapter {
 
       Map<String, Object> root = new HashMap<>();
       root.put("topPackage", topPackage);
+      root.put("javaMapperTargetPackage", javaMapperTargetPackage);
       root.put("javaModelTargetPackage", javaModelTargetPackage);
       root.put("javaClientTargetPackage", javaClientTargetPackage);
       root.put("EntityName", javaClassName);

@@ -30,7 +30,7 @@
         <!-- 扩展entity的set方法-->
         <plugin type="org.zhiqiang.lu.maven.plugins.mybatis.generator.plugins.ExtendEntitySetter"/>
         <!-- 扩展添加services接口-->
-        <plugin type="org.zhiqiang.lu.maven.plugins.mybatis.generator.plugins.GeneratorServices"/>
+        <plugin type="org.zhiqiang.lu.maven.plugins.mybatis.generator.plugins.GeneratorMapperExtend"/>
         <!-- 扩展添加controller-->
         <plugin type="org.zhiqiang.lu.maven.plugins.mybatis.generator.plugins.GeneratorController"/>
 
@@ -41,7 +41,7 @@
             <property name="suppressAllComments" value="true"/>
         </commentGenerator>
         <!--数据库链接URL，用户名、密码 -->
-        <jdbcConnection driverClass="com.mysql.cj.jdbc.Driver"
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
                         connectionURL="jdbc:mysql://1.62.154.22:6365/cloud_inventory" userId="root" password="root">
             <property name="useInformationSchema" value="true"/>
         </jdbcConnection>

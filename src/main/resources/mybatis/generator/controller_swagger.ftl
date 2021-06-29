@@ -1,7 +1,7 @@
 package ${topPackage}.controller;
 
 import ${javaModelTargetPackage}.${EntityName};
-import ${topPackage}.service.${EntityName}Service;
+import ${javaMapperTargetPackage}.extend.${EntityName}MapperExtend;
 import org.zhiqiang.lu.easycode.spring.aop.model.LogicException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
@@ -26,13 +26,13 @@ import io.swagger.annotations.ApiParam;
 public class ${EntityName}Controller {
 
 @Autowired
-private ${EntityName}Service ${entityName}Service;
+private ${EntityName}MapperExtend ${entityName}Mapper;
 
 @PostMapping("/insert")
 @ApiOperation(value = "添加${remarks}信息", notes = "添加${remarks}信息，如果主键重复会返回错误提示。")
 public ${EntityName} insert(@ApiParam(value = "${remarks}", required = true) @RequestBody ${EntityName} ${entityName}) throws LogicException {
 try{
-${entityName}Service.insert(${entityName});
+${entityName}Mapper.insert(${entityName});
 return ${entityName};
 } catch (DuplicateKeyException e) {
 throw new LogicException("<#list primary_key as pk>[${pk.remarks}]<#if pk_has_next>,</#if></#list>信息重复！");
@@ -42,18 +42,18 @@ throw new LogicException("<#list primary_key as pk>[${pk.remarks}]<#if pk_has_ne
 @PostMapping("/update")
 @ApiOperation(value = "更新${remarks}信息", notes = "通过主键更新${remarks}信息、返回更新条数[1]，当返回[0]时是因为没有找到要更新的信息。")
 public int update(@ApiParam(value = "${remarks}", required = true) @RequestBody ${EntityName} ${entityName}) {
-return ${entityName}Service.updateByPrimaryKeySelective(${entityName});
+return ${entityName}Mapper.updateByPrimaryKeySelective(${entityName});
 }
 
 @GetMapping("/delete")
 @ApiOperation(value = "删除${remarks}信息", notes = "通过主键删除${remarks}信息、返回删除条数[1]，当返回[0]时是因为没有找到要删除的信息。")
 public int delete(<#list primary_key as pk>@ApiParam(value = "[${pk.length}]${pk.remarks}", required = true) @RequestParam ${pk.fullyQualifiedJavaType.shortName} ${pk.actualColumnName}<#if pk_has_next>,</#if></#list>) {
-return ${entityName}Service.deleteByPrimaryKey(<#list primary_key as pk>${pk.actualColumnName}<#if pk_has_next>,</#if></#list>);
+return ${entityName}Mapper.deleteByPrimaryKey(<#list primary_key as pk>${pk.actualColumnName}<#if pk_has_next>,</#if></#list>);
 }
 
 @GetMapping("/select")
 @ApiOperation(value = "查询${remarks}信息", notes = "通过主键查询${remarks}信息")
 public ${EntityName} select(<#list primary_key as pk>@ApiParam(value = "[${pk.length}]${pk.remarks}", required = true) @RequestParam ${pk.fullyQualifiedJavaType.shortName} ${pk.actualColumnName}<#if pk_has_next>,</#if></#list>) {
-return ${entityName}Service.selectByPrimaryKey(<#list primary_key as pk>${pk.actualColumnName}<#if pk_has_next>,</#if></#list>);
+return ${entityName}Mapper.selectByPrimaryKey(<#list primary_key as pk>${pk.actualColumnName}<#if pk_has_next>,</#if></#list>);
 }
 }

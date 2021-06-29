@@ -37,6 +37,7 @@ public class MybatisGenerator extends AbstractMojo {
     ConfigurationParser cp = new ConfigurationParser(warnings);
     Configuration config = null;
     try {
+      System.out.println(projectPath + "/" + configurationFile);
       config = cp
           .parseConfiguration(new BufferedInputStream(new FileInputStream(projectPath + "/" + configurationFile)));
     } catch (IOException e) {
