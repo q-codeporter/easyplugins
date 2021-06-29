@@ -15,7 +15,7 @@ easyplugins:
       url: jdbc:mysql://1.62.154.22:6365/kubesphere_manager?useSSL=false&useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8
       username: root
       password: root
-      driver-class-name: com.mysql.jdbc.Driver
+      driver-class-name: com.mysql.cj.jdbc.Driver
     template:
       type: freemarker
     strategy:
