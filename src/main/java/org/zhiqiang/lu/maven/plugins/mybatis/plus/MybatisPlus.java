@@ -159,7 +159,9 @@ public class MybatisPlus extends AbstractMojo {
     // 5、模板生成器
     mpg.setTemplateEngine(new FreemarkerTemplateEngine());
     TemplateConfig tc = new TemplateConfig();
-    tc.setController("/mybatis/plus/freemarker/controller.java");
+    if (strategy.getJSONObject("super").getString("controller").contains("zhiqiang.lu")) {
+      tc.setController("/mybatis/plus/freemarker/controller.java");
+    }
     mpg.setTemplate(tc).execute(); // 执行
   }
 }
