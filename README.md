@@ -121,6 +121,7 @@ mybatis-generator-plugin插件扩展
 mybatis-plus：对mybatis-plus进行扩展。
 <br/>
 #### 使用方法：
+```
 easyplugins:
   mybatis-plus:
     package:
@@ -147,8 +148,7 @@ easyplugins:
       is-normalize: false
       lombok: false
       table: interface_info,interface_release,users
-
-
+```
 
 
 
