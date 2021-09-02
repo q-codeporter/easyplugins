@@ -1,8 +1,9 @@
 ## maven插件 easycode
-### 功能描述：
+### mybatis-generator
+#### 功能描述：
 mybatis-generator：对mybatis-generator进行扩展，添加生成swagger、service、controller、日期与时间格式化，等代码一键生成。由于不建议使用lombok，且类文件都是自动生成不会影响编码效率，所以不支持lombok扩展。
 <br/>
-### 使用方法：
+#### 使用方法：
 maven插件方式引入，使用原生mybatis-generator配置文件<br/>
 <!-- mybatis generator 自动生成代码插件 --><br/>
 ```
@@ -115,8 +116,39 @@ mybatis-generator-plugin插件扩展
     </context>
 </generatorConfiguration>
 ```
-
-
+### mybatis-generator
+#### 功能描述：
+mybatis-plus：对mybatis-plus进行扩展。
+<br/>
+#### 使用方法：
+```
+easyplugins:
+  mybatis-plus:
+    package:
+      module_name: 
+      parent: com.example.test
+    global:
+      swagger: true
+      file-override:
+        entity: true
+        mapper: true
+        service: false
+        service.impl: false
+        controller: false
+    datasource:
+      url: jdbc:mysql://1.62.154.22:6365/dataway?useSSL=false&useUnicode=true&characterEncoding=utf-8&serverTimezone=GMT%2B8
+      username: root
+      password: root
+      driver-class-name: com.mysql.jdbc.Driver
+    template:
+      type: freemarker
+    strategy:
+      super:
+        controller: org.zhiqiang.lu.easycode.spring.aop.model.mybatis.plus.swagger.BaseController
+      is-normalize: false
+      lombok: false
+      table: interface_info,interface_release,users
+```
 
 
 
