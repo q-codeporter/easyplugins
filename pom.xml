@@ -3,7 +3,7 @@
   <groupId>org.zhiqiang.lu.maven.plugins</groupId>
   <artifactId>easyplugins</artifactId>
   <packaging>maven-plugin</packaging>
-  <version>7.1.3</version>
+  <version>7.1.4</version>
   <properties>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
@@ -78,6 +78,11 @@
       <artifactId>slf4j-api</artifactId>
       <version>1.7.22</version>
     </dependency>
+    <dependency>
+      <groupId>net.sf.proguard</groupId>
+      <artifactId>proguard-base</artifactId>
+      <version>6.2.2</version>
+    </dependency>
   </dependencies>
   <distributionManagement>
     <repository>
@@ -96,6 +101,80 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-plugin-plugin</artifactId>
         <version>3.6.0</version>
+      </plugin>
+      <plugin>
+        <groupId>com.github.wvengen</groupId>
+        <artifactId>proguard-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>proguard</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <proguardVersion>6.2.2</proguardVersion>
+          <injar>${project.build.finalName}.jar</injar>
+          <outjar>${project.build.finalName}.jar</outjar>
+          <obfuscate>true</obfuscate>
+          <options>
+            <!-- This option will save all original methods parameters in files defined in -keep sections,
+                             otherwise all parameter names will be obfuscate.-->
+            <option>-keepparameternames</option>
+            <option>-keeppackagenames</option>
+
+            <!-- 不做收缩（删除注释、未被引用代码） -->
+            <option>-dontshrink</option>
+            <!-- 不做优化（变更代码实现逻辑） -->
+            <option>-dontoptimize</option>
+            <!-- This option will replace all strings in reflections method invocations with new class names.
+                             For example, invokes Class.forName('className')-->
+            <option>-adaptclassstrings</option>
+            <!-- This option will save all original annotations and etc. Otherwise all we be removed from files.-->
+            <!-- 不混淆所有特殊的类 -->
+            <option>-keepattributes Exceptions,InnerClasses,Signature,Deprecated,
+							SourceFile,LineNumberTable,*Annotation*,EnclosingMethod</option>
+            <!-- This option will save all original names in interfaces (without obfuscate).-->
+            <option>-keepnames interface **</option>
+            <option>-keepparameternames</option>
+            <!-- 不混淆所有包名，本人测试混淆后WEB项目问题实在太多，毕竟Spring配置中有
+                大量固定写法的包名 -->
+            <option>-keeppackagenames</option>
+
+            <!-- This option will save all original interfaces files (without obfuscate) in all packages.-->
+            <option>-keep interface * extends * { *; }</option>
+            <!-- This option will save all original defined annotations in all class in all packages.-->
+            <option>-keepclassmembers class * {
+							@org.springframework.beans.factory.annotation.Autowired *;
+							@org.springframework.beans.factory.annotation.Value *;
+							@org.springframework.stereotype.Service *;
+							@org.springframework.stereotype.Component *;
+							@org.springframework.scheduling.annotation.Scheduled *;
+							}
+						</option>
+            <!-- 不混淆所有的set/get方法 -->
+            <option>-keepclassmembers public class * {void set*(***);***
+                    get*();}</option>
+            <!-- 不混淆包中的所有类以及类的属性及方法，实体包，混淆了会导致ORM框架及前端无法识别 -->
+            <!-- 不对包类的类名进行混淆，但对类中的属性和方法混淆 -->
+            <option>-keep class org.zhiqiang.lu.maven.plugins.mybatis.generator.* {*;}</option>
+            <option>-keep class org.zhiqiang.lu.maven.plugins.mybatis.plus.* {*;}</option>
+          </options>
+          <libs>
+            <!-- Include main JAVA library required.-->
+            <lib>${java.home}/lib/rt.jar</lib>
+            <lib>${java.home}/lib/jce.jar</lib>
+          </libs>
+        </configuration>
+        <dependencies>
+          <dependency>
+            <groupId>net.sf.proguard</groupId>
+            <artifactId>proguard-base</artifactId>
+            <version>6.2.2</version>
+            <scope>runtime</scope>
+          </dependency>
+        </dependencies>
       </plugin>
     </plugins>
   </build>
