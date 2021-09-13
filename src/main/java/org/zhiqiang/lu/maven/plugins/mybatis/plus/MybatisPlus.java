@@ -33,7 +33,7 @@ public class MybatisPlus extends AbstractMojo {
 
   public static void main(String[] args) throws MojoExecutionException {
     MybatisPlus m = new MybatisPlus();
-    m.configurationFile = "/src/main/resources/mybatis/generator/config.xml";
+    m.configurationFile = "/src/main/resources/mybatis/plus/mybatis.yml";
     m.execute();
   }
 
