@@ -162,6 +162,7 @@ public class MybatisPlus extends AbstractMojo {
     if (strategy.getJSONObject("super").getString("controller").contains("zhiqiang.lu")) {
       tc.setController("/mybatis/plus/freemarker/controller.java");
     }
+    tc.setEntity(null).setXml(null).setMapper(null).setService(null).setServiceImpl(null);
     mpg.setTemplate(tc).execute(); // 执行
   }
 }
