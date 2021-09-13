@@ -154,6 +154,7 @@ public class MybatisPlus extends AbstractMojo {
     strategyConfig.setTablePrefix("mdm_"); // 去掉表名mdm_inf_rec_data中的 mdm_ 类名为InfRecData
     strategyConfig.setControllerMappingHyphenStyle(false); // 控制层mapping的映射地址 false：infRecData true：inf_rec_data
     strategyConfig.setSuperControllerClass(strategy.getJSONObject("super").getString("controller"));
+    strategyConfig.setSuperMapperClass("com.baomidou.mybatisplus.core.mapper.BaseMapper");
     mpg.setStrategy(strategyConfig);
 
     // 5、模板生成器
@@ -162,7 +163,7 @@ public class MybatisPlus extends AbstractMojo {
     if (strategy.getJSONObject("super").getString("controller").contains("zhiqiang.lu")) {
       tc.setController("/mybatis/plus/freemarker/controller.java");
     }
-    tc.setEntity(null).setXml(null).setMapper(null).setService(null).setServiceImpl(null);
+    // tc.setEntity(null).setXml(null).setMapper(null).setService(null).setServiceImpl(null);
     mpg.setTemplate(tc).execute(); // 执行
   }
 }
