@@ -129,8 +129,12 @@ public class MybatisPlus extends AbstractMojo {
     // 4、策略配置
     StrategyConfig strategyConfig = new StrategyConfig();
     strategyConfig.setInclude(strategy.getString("table").split(",")); // 需要生成的表 设置要映射的表名
-    // strategyConfig.setNaming(NamingStrategy.underline_to_camel);// 表名生成策略
-    // strategyConfig.setColumnNaming(NamingStrategy.underline_to_camel);
+    if ("underline_to_camel".equals(strategy.getString("naming"))) {
+      strategyConfig.setNaming(NamingStrategy.underline_to_camel);// 表名生成策略
+    }
+    if ("underline_to_camel".equals(strategy.getString("columnNaming"))) {
+      strategyConfig.setColumnNaming(NamingStrategy.underline_to_camel);
+    }
     strategyConfig.setCapitalMode(false); // 【不懂】 开启全局大写命名
     strategyConfig.setSuperMapperClass(null); // 【不懂】
     // 是否需要开启特定规范字段

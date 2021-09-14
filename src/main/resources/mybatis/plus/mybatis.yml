@@ -1,7 +1,7 @@
 easyplugins:
   mybatis-plus:
     package:
-      module_name: 
+      module_name:
       parent: com.example.test
     global:
       swagger: true
@@ -22,5 +22,7 @@ easyplugins:
       super:
         controller: org.zhiqiang.lu.easycode.spring.aop.model.mybatis.plus.swagger.BaseController
       is-normalize: false
+      naming: no_change # no_change or underline_to_camel
+      columnNaming: no_change # no_change or underline_to_camel
       lombok: false
       table: interface_info,interface_release,users
