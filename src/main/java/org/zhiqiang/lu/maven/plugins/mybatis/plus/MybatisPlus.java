@@ -19,7 +19,7 @@ import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.yaml.snakeyaml.Yaml;
-import org.zhiqiang.lu.maven.plugins.mybatis.utils.files;
+import org.zhiqiang.lu.maven.plugins.mybatis.utils.Files;
 
 import java.io.BufferedInputStream;
 import java.io.FileInputStream;
@@ -74,7 +74,7 @@ public class MybatisPlus extends AbstractMojo {
       if (global.getJSONObject("file-override").getBoolean(tmp)) {
         try {
           System.out.println(path);
-          files.delete(path);
+          Files.delete(path);
         } catch (Exception e) {
           System.out.println("删除文件失败！");
           e.printStackTrace();
